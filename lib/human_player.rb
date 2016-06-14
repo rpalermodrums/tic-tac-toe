@@ -42,7 +42,7 @@ class HumanPlayer
 
   def add_win
     @wins += 1
-    create_leaderboard
+    self.create_leaderboard
   end
 
   def valid?(move)
@@ -54,17 +54,25 @@ class HumanPlayer
     gets.chomp
   end
 
-  def take_turn
-    #prompt user for a space
-    move = get_move
-    #check if move is valid
+  def redirect_human_move
+    puts "Not a valid space"
+    take_turn
+  end
+
+  def check_move(move)
     if valid?(move)
       # access real value/index of space
       @space = SPACES[move.to_sym]
     else
       # raise error and restart method if not valid
-      puts "Not a valid space"
-      take_turn
+      redirect_human_move
     end
+  end
+
+  def take_turn
+    #prompt user for a space
+    move = get_move
+    #check if move is valid
+    check_move(move)
   end
 end

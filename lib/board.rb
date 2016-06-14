@@ -15,10 +15,9 @@ class Board
     c3: 8
   }
 
-
   WINNING_COMBINATIONS = [
     [0,1,2],
-    [2,4,5],
+    [3,4,5],
     [6,7,8],
     [0,3,6],
     [1,4,7],
@@ -35,13 +34,13 @@ class Board
 
   def place_mark(pos, mark)
     #if a space is empty mark the space. otherwise, tell the player and retry
-    if empty?(pos)
-      @grid[pos] = mark
-    else
-      puts "Not a valid move. Try Again."
-      position = gets.chomp
-      place_mark(SPACES[position.to_sym], mark)
-    end
+    empty?(pos) ? @grid[pos] = mark : redirect_place_mark(mark)
+  end
+
+  def redirect_place_mark(mark)
+    puts "Not a valid move. Try Again."
+    position = gets.chomp
+    place_mark(SPACES[position.to_sym], mark)
   end
 
   def full?
@@ -51,20 +50,16 @@ class Board
 
   def won
     #iterate through each combination of wins, check if any of them has been achieved
-    marks = [:X, :O]
     WINNING_COMBINATIONS.each do |combination|
-      marks.each do |mark|
-        if combination.all? { |space| @grid[space] == mark }
-          return mark
-        end
+      [:X, :O].each do |mark|
+        return combination.all? { |space| @grid[space] == mark } ? mark : nil
       end
     end
-    nil
   end
 
   def over?
-    #check if the game is over
-    !won.nil? || full?
+    #check if the game is over if won has a value or board is full
+    won || full?
   end
 
   def clear
