@@ -5,7 +5,6 @@ class Game
     @human = HumanPlayer.new
     @computer = ComputerPlayer.new
     @board = Board.new
-    choose_marks
   end
 
   def choose_marks
@@ -22,6 +21,9 @@ class Game
   end
 
   def run
+    SetPlayerName.new(human).run
+    SetPlayerMark.new(human).run
+    choose_marks
     playing = true
     while playing
       question = prompt_tic_tac_toe
@@ -52,7 +54,7 @@ class Game
 
   def play
     #each game starts with an empty array
-    board.clear
+    Clear.new(board).run
     #loop until the game is won or tied
     until board.over?
       inner_loop
@@ -108,12 +110,12 @@ class Game
   end
 
   def human_turn
-    board.place_mark(human.take_turn, human.mark)
+    PlaceMark.new(human.take_turn, human.mark, board).run
   end
 
   def computer_turn
     unless board.over?
-      board.place_mark(computer.take_turn(board.grid), computer.mark)
+      PlaceMark.new(computer.take_turn(board.grid), computer.mark, board).run
     end
   end
 

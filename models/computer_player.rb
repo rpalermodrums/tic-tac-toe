@@ -1,4 +1,3 @@
-require "pry"
 
 class ComputerPlayer
   attr_accessor :mark, :space

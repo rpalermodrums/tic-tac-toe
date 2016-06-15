@@ -1,4 +1,4 @@
-require "pry"
+
 
 class Board
   attr_accessor :grid
@@ -32,17 +32,6 @@ class Board
     @grid[pos].nil?
   end
 
-  def place_mark(pos, mark)
-    #if a space is empty mark the space. otherwise, tell the player and retry
-    empty?(pos) ? @grid[pos] = mark : redirect_place_mark(mark)
-  end
-
-  def redirect_place_mark(mark)
-    puts "Not a valid move. Try Again."
-    position = gets.chomp
-    place_mark(SPACES[position.to_sym], mark)
-  end
-
   def full?
     #check if the board is full
     @grid.none? { |space| space.nil? }
@@ -61,11 +50,6 @@ class Board
   def over?
     #check if the game is over if won has a value or board is full
     won || full?
-  end
-
-  def clear
-    #reset board
-    @grid = Array.new(9)
   end
 end
 
