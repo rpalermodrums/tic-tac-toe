@@ -52,9 +52,10 @@ class Board
     #iterate through each combination of wins, check if any of them has been achieved
     WINNING_COMBINATIONS.each do |combination|
       [:X, :O].each do |mark|
-        return combination.all? { |space| @grid[space] == mark } ? mark : nil
+        return mark  if  combination.all? { |space| @grid[space] == mark }
       end
     end
+    nil
   end
 
   def over?

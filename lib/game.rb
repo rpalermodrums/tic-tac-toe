@@ -22,9 +22,10 @@ class Game
   end
 
   def run
-    while true
+    playing = true
+    while playing
       question = prompt_tic_tac_toe
-      answer(question)
+      playing = answer(question)
     end
   end
 
