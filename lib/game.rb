@@ -32,7 +32,8 @@ class Game
   def answer(question)
     if question == "Y"
       self.game_loop
-    else
+      true
+    elsif question == "N"
       quit
     end
   end
